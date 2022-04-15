@@ -21,7 +21,7 @@ class SpaceCard extends StatelessWidget {
             height: 110,
             child: Stack(
               children: [
-                Image.asset('assets/images/space1.png'),
+                Image.asset(space.imageUrl ?? 'assets/images/space1.png'),
                 Align(
                   alignment: Alignment.topRight,
                   child: Container(
@@ -69,7 +69,7 @@ class SpaceCard extends StatelessWidget {
             ),
             Text.rich(
               TextSpan(
-                  text: '\$' + space.price.toString(),
+                  text: '\$${space.price}',
                   style: purpleTextStyle.copyWith(fontSize: 16),
                   children: [
                     TextSpan(

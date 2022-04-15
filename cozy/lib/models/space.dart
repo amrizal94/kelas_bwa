@@ -4,6 +4,14 @@ class Space {
   int? price;
   String? location;
   String? rating;
+  String? imageUrl;
 
-  Space({this.id, this.name, this.price, this.location, this.rating});
+  Space({
+    this.id,
+    this.name,
+    this.price,
+    this.location,
+    this.rating,
+    this.imageUrl,
+  });
 }
