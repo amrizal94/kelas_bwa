@@ -13,7 +13,7 @@ class DetailPage extends StatelessWidget {
         child: Stack(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.vertical(
+              borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(20),
               ),
               child: Image.asset(
@@ -21,22 +21,6 @@ class DetailPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 350,
                 fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: edge, vertical: 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(
-                    'assets/images/btn_back.png',
-                    width: 40,
-                  ),
-                  Image.asset(
-                    'assets/images/btn_wishlist.png',
-                    width: 40,
-                  ),
-                ],
               ),
             ),
             ListView(
@@ -47,7 +31,7 @@ class DetailPage extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.vertical(
+                      borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(20),
                       ),
                       color: whiteColor),
@@ -119,7 +103,7 @@ class DetailPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Padding(
@@ -133,7 +117,7 @@ class DetailPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Padding(
@@ -166,6 +150,27 @@ class DetailPage extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: edge, vertical: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Image.asset(
+                      'assets/images/btn_back.png',
+                      width: 40,
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/images/btn_wishlist.png',
+                    width: 40,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
