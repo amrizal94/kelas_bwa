@@ -196,7 +196,7 @@ class HomaPage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 50 + edge,
+              height: 60 + edge,
             ),
           ],
         ),
