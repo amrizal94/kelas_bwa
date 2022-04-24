@@ -1,18 +1,22 @@
 import 'package:cozy/models/city.dart';
 import 'package:cozy/models/space.dart';
 import 'package:cozy/models/tips.dart';
+import 'package:cozy/providers/space_provider.dart';
 import 'package:cozy/theme.dart';
 import 'package:cozy/widgets/bottom_navbar_item.dart';
 import 'package:cozy/widgets/city_card.dart';
 import 'package:cozy/widgets/space_card.dart';
 import 'package:cozy/widgets/tips_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomaPage extends StatelessWidget {
   const HomaPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var spaceProvider = Provider.of<SpaceProvider>(context);
+
     return Scaffold(
       body: SafeArea(
         bottom: false,
@@ -114,45 +118,32 @@ class HomaPage extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            Column(
-              children: [
-                SpaceCard(
-                  space: Space(
-                      id: 1,
-                      name: 'Kuretakeso Hott',
-                      imageUrl: 'assets/images/space1.png',
-                      price: 52,
-                      location: 'Bandung, Germany',
-                      rating: '4/5'),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                SpaceCard(
-                  space: Space(
-                    id: 2,
-                    name: 'Roemah Nenek',
-                    price: 11,
-                    imageUrl: 'assets/images/space2.png',
-                    location: 'Seattle, Bogor',
-                    rating: '5/5',
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                SpaceCard(
-                  space: Space(
-                    id: 3,
-                    name: 'Darrling How',
-                    price: 20,
-                    imageUrl: 'assets/images/space3.png',
-                    location: 'Jakarta, Indonesia',
-                    rating: '3/5',
-                  ),
-                ),
-              ],
+            FutureBuilder(
+              future: spaceProvider.getRecommendedSpace(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<Space>? data = snapshot.data as List<Space>?;
+
+                  int index = 0;
+
+                  return Column(
+                    children: data!.map((item) {
+                      index++;
+                      return Container(
+                        margin: EdgeInsets.only(
+                          top: index == 1 ? 0 : 30,
+                        ),
+                        child: SpaceCard(space: item),
+                      );
+                    }).toList(),
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
             ),
+
             const SizedBox(
               height: 30,
             ),

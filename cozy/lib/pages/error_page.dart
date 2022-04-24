@@ -1,3 +1,4 @@
+import 'package:cozy/pages/home_page.dart';
 import 'package:cozy/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +43,12 @@ class ErrorPage extends StatelessWidget {
                 width: 210,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomaPage(),
+                        ),
+                        (route) => false);
                   },
                   child: Text(
                     'Back Home',

@@ -1,15 +1,30 @@
 import 'package:cozy/models/facilities.dart';
 import 'package:cozy/models/photos.dart';
+import 'package:cozy/pages/error_page.dart';
 import 'package:cozy/theme.dart';
 import 'package:cozy/widgets/main_facilities.dart';
 import 'package:cozy/widgets/photo_card.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    void _launchURL(String _url) async {
+      if (await canLaunch(_url)) {
+        launch(_url);
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ErrorPage(),
+          ),
+        );
+      }
+    }
+
     return Scaffold(
       body: SafeArea(
         bottom: false,
@@ -238,7 +253,9 @@ class DetailPage extends StatelessWidget {
                           ],
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            _launchURL('https://google.com');
+                          },
                           child: Image.asset(
                             'assets/images/btn_map.png',
                             width: 40,

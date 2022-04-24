@@ -33,7 +33,12 @@ class SpaceCard extends StatelessWidget {
               height: 110,
               child: Stack(
                 children: [
-                  Image.asset(space.imageUrl ?? 'assets/images/space1.png'),
+                  Image.network(
+                    space.imageUrl ?? 'assets/images/space1.png',
+                    width: 130,
+                    height: 110,
+                    fit: BoxFit.cover,
+                  ),
                   Align(
                     alignment: Alignment.topRight,
                     child: Container(
@@ -55,7 +60,7 @@ class SpaceCard extends StatelessWidget {
                             height: 22,
                           ),
                           Text(
-                            space.rating ?? '4/5',
+                            '${space.rating}/5',
                             style: whiteTextStyle.copyWith(fontSize: 16),
                           )
                         ],
@@ -96,7 +101,7 @@ class SpaceCard extends StatelessWidget {
                 height: 16,
               ),
               Text(
-                space.location ?? 'Bandung, Germany',
+                '${space.city}, ${space.country}',
                 style: greyTextStyle,
               )
             ],
