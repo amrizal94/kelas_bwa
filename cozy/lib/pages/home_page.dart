@@ -69,18 +69,12 @@ class HomaPage extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  const SizedBox(
-                    width: 24,
-                  ),
                   CityCard(
                     city: City(
                       id: 1,
                       name: 'Jakarta',
                       imageUrl: 'assets/images/city1.png',
                     ),
-                  ),
-                  const SizedBox(
-                    width: 20,
                   ),
                   CityCard(
                     city: City(
@@ -89,14 +83,33 @@ class HomaPage extends StatelessWidget {
                         imageUrl: 'assets/images/city2.png',
                         popular: true),
                   ),
-                  const SizedBox(
-                    width: 20,
-                  ),
                   CityCard(
                     city: City(
                       id: 3,
                       name: 'Surabaya',
                       imageUrl: 'assets/images/city3.png',
+                    ),
+                  ),
+                  CityCard(
+                    city: City(
+                      id: 4,
+                      name: 'Palembang',
+                      imageUrl: 'assets/images/city4.png',
+                    ),
+                  ),
+                  CityCard(
+                    city: City(
+                      id: 5,
+                      name: 'Aceh',
+                      imageUrl: 'assets/images/city5.png',
+                      popular: true,
+                    ),
+                  ),
+                  CityCard(
+                    city: City(
+                      id: 6,
+                      name: 'Bogor',
+                      imageUrl: 'assets/images/city6.png',
                     ),
                   ),
                 ],

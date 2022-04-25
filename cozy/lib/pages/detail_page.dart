@@ -7,10 +7,17 @@ import 'package:cozy/widgets/rating_item.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   const DetailPage({Key? key, required this.space}) : super(key: key);
 
   final Space space;
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  bool isWishList = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +44,7 @@ class DetailPage extends StatelessWidget {
                 top: Radius.circular(20),
               ),
               child: Image.network(
-                space.imageUrl ??
+                widget.space.imageUrl ??
                     'https://raw.githubusercontent.com/amrizal94/kelas_bwa/main/image_not_found.png',
                 width: MediaQuery.of(context).size.width,
                 height: 350,
@@ -70,14 +77,14 @@ class DetailPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              space.name ?? 'Kota Tahu',
+                              widget.space.name ?? 'Kota Tahu',
                               style: blackTextStyle.copyWith(
                                 fontSize: 22,
                               ),
                             ),
                             Text.rich(
                               TextSpan(
-                                  text: '\$${space.price}',
+                                  text: '\$${widget.space.price}',
                                   style: purpleTextStyle.copyWith(fontSize: 16),
                                   children: [
                                     TextSpan(
@@ -95,7 +102,7 @@ class DetailPage extends StatelessWidget {
                             return Container(
                               margin: const EdgeInsets.only(left: 2),
                               child: RatingItem(
-                                  index: index, rating: space.rating),
+                                  index: index, rating: widget.space.rating),
                             );
                           }).toList(),
                         ),
@@ -132,7 +139,7 @@ class DetailPage extends StatelessWidget {
                             facilities: Facilities(
                               id: 1,
                               imageUrl: 'assets/images/icon_kitchen.png',
-                              count: space.numberOfKitchens,
+                              count: widget.space.numberOfKitchens,
                               name: ' kitchen',
                             ),
                           ),
@@ -140,7 +147,7 @@ class DetailPage extends StatelessWidget {
                             facilities: Facilities(
                               id: 2,
                               imageUrl: 'assets/images/icon_bedroom.png',
-                              count: space.numberOfBedrooms,
+                              count: widget.space.numberOfBedrooms,
                               name: ' bedroom',
                             ),
                           ),
@@ -148,7 +155,7 @@ class DetailPage extends StatelessWidget {
                             facilities: Facilities(
                               id: 3,
                               imageUrl: 'assets/images/icon_cupboard.png',
-                              count: space.numberOfCupboards,
+                              count: widget.space.numberOfCupboards,
                               name: ' Big Lemari',
                             ),
                           ),
@@ -175,7 +182,7 @@ class DetailPage extends StatelessWidget {
                     height: 88,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
-                      children: space.photos!.map((item) {
+                      children: widget.space.photos!.map((item) {
                         return Container(
                           margin: EdgeInsets.only(left: edge),
                           child: ClipRRect(
@@ -221,21 +228,22 @@ class DetailPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              space.address ?? 'Jln. belum diketahu',
+                              widget.space.address ?? 'Jln. belum diketahu',
                               style: greyTextStyle,
                             ),
                             const SizedBox(
                               height: 2,
                             ),
                             Text(
-                              space.city ?? 'kota belum diketahui',
+                              widget.space.city ?? 'kota belum diketahui',
                               style: greyTextStyle,
                             ),
                           ],
                         ),
                         InkWell(
                           onTap: () {
-                            _launchURL(space.mapUrl ?? 'asdasdasasdadasd');
+                            _launchURL(
+                                widget.space.mapUrl ?? 'asdasdasasdadasd');
                           },
                           child: Image.asset(
                             'assets/images/btn_map.png',
@@ -253,7 +261,7 @@ class DetailPage extends StatelessWidget {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        _launchURL('tel:${space.phone}');
+                        _launchURL('tel:${widget.space.phone}');
                       },
                       child: Text(
                         'Book Now',
@@ -288,9 +296,18 @@ class DetailPage extends StatelessWidget {
                       width: 40,
                     ),
                   ),
-                  Image.asset(
-                    'assets/images/btn_wishlist.png',
-                    width: 40,
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        isWishList = !isWishList;
+                      });
+                    },
+                    child: Image.asset(
+                      isWishList
+                          ? 'assets/images/btn_wishlist_filled.png'
+                          : 'assets/images/btn_wishlist.png',
+                      width: 40,
+                    ),
                   ),
                 ],
               ),
