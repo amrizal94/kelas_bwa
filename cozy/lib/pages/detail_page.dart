@@ -1,14 +1,16 @@
 import 'package:cozy/models/facilities.dart';
-import 'package:cozy/models/photos.dart';
+import 'package:cozy/models/space.dart';
 import 'package:cozy/pages/error_page.dart';
 import 'package:cozy/theme.dart';
 import 'package:cozy/widgets/main_facilities.dart';
-import 'package:cozy/widgets/photo_card.dart';
+import 'package:cozy/widgets/rating_item.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({Key? key}) : super(key: key);
+  const DetailPage({Key? key, required this.space}) : super(key: key);
+
+  final Space space;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +36,9 @@ class DetailPage extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(20),
               ),
-              child: Image.asset(
-                'assets/images/thumbnail.png',
+              child: Image.network(
+                space.imageUrl ??
+                    'https://raw.githubusercontent.com/amrizal94/kelas_bwa/main/image_not_found.png',
                 width: MediaQuery.of(context).size.width,
                 height: 350,
                 fit: BoxFit.cover,
@@ -67,14 +70,14 @@ class DetailPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Kuretakeso Hott',
+                              space.name ?? 'Kota Tahu',
                               style: blackTextStyle.copyWith(
                                 fontSize: 22,
                               ),
                             ),
                             Text.rich(
                               TextSpan(
-                                  text: '\$52',
+                                  text: '\$${space.price}',
                                   style: purpleTextStyle.copyWith(fontSize: 16),
                                   children: [
                                     TextSpan(
@@ -88,29 +91,13 @@ class DetailPage extends StatelessWidget {
                           ],
                         ),
                         Row(
-                          children: [
-                            Image.asset(
-                              'assets/images/Icon_star_solid.png',
-                              width: 20,
-                            ),
-                            Image.asset(
-                              'assets/images/Icon_star_solid.png',
-                              width: 20,
-                            ),
-                            Image.asset(
-                              'assets/images/Icon_star_solid.png',
-                              width: 20,
-                            ),
-                            Image.asset(
-                              'assets/images/Icon_star_solid.png',
-                              width: 20,
-                            ),
-                            Image.asset(
-                              'assets/images/Icon_star_solid.png',
-                              width: 20,
-                              color: const Color(0xff989BA1),
-                            ),
-                          ],
+                          children: [1, 2, 3, 4, 5].map((index) {
+                            return Container(
+                              margin: const EdgeInsets.only(left: 2),
+                              child: RatingItem(
+                                  index: index, rating: space.rating),
+                            );
+                          }).toList(),
                         ),
                       ],
                     ),
@@ -145,7 +132,7 @@ class DetailPage extends StatelessWidget {
                             facilities: Facilities(
                               id: 1,
                               imageUrl: 'assets/images/icon_kitchen.png',
-                              count: 2,
+                              count: space.numberOfKitchens,
                               name: ' kitchen',
                             ),
                           ),
@@ -153,7 +140,7 @@ class DetailPage extends StatelessWidget {
                             facilities: Facilities(
                               id: 2,
                               imageUrl: 'assets/images/icon_bedroom.png',
-                              count: 3,
+                              count: space.numberOfBedrooms,
                               name: ' bedroom',
                             ),
                           ),
@@ -161,7 +148,7 @@ class DetailPage extends StatelessWidget {
                             facilities: Facilities(
                               id: 3,
                               imageUrl: 'assets/images/icon_cupboard.png',
-                              count: 3,
+                              count: space.numberOfCupboards,
                               name: ' Big Lemari',
                             ),
                           ),
@@ -188,26 +175,20 @@ class DetailPage extends StatelessWidget {
                     height: 88,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
-                      children: [
-                        SizedBox(
-                          width: edge,
-                        ),
-                        PhotoCard(
-                          photos: Photos(
-                            imageUrl: 'assets/images/photo1.png',
+                      children: space.photos!.map((item) {
+                        return Container(
+                          margin: EdgeInsets.only(left: edge),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.network(
+                              item,
+                              width: 110,
+                              height: 88,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        PhotoCard(
-                          photos: Photos(
-                            imageUrl: 'assets/images/photo2.png',
-                          ),
-                        ),
-                        PhotoCard(
-                          photos: Photos(
-                            imageUrl: 'assets/images/photo3.png',
-                          ),
-                        ),
-                      ],
+                        );
+                      }).toList(),
                     ),
                   ),
                   const SizedBox(
@@ -240,21 +221,21 @@ class DetailPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Jln. Kappan Sukses No. 20',
+                              space.address ?? 'Jln. belum diketahu',
                               style: greyTextStyle,
                             ),
                             const SizedBox(
                               height: 2,
                             ),
                             Text(
-                              'Palembang',
+                              space.city ?? 'kota belum diketahui',
                               style: greyTextStyle,
                             ),
                           ],
                         ),
                         InkWell(
                           onTap: () {
-                            _launchURL('https://google.com');
+                            _launchURL(space.mapUrl ?? 'asdasdasasdadasd');
                           },
                           child: Image.asset(
                             'assets/images/btn_map.png',
@@ -271,7 +252,9 @@ class DetailPage extends StatelessWidget {
                     width: 327,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _launchURL('tel:${space.phone}');
+                      },
                       child: Text(
                         'Book Now',
                         style: whiteTextStyle.copyWith(

@@ -1,6 +1,5 @@
 import 'package:cozy/models/space.dart';
 import 'package:cozy/pages/detail_page.dart';
-import 'package:cozy/pages/error_page.dart';
 import 'package:cozy/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +15,7 @@ class SpaceCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                space.id == 1 ? const DetailPage() : const ErrorPage(),
+            builder: (context) => DetailPage(space: space),
           ),
         );
       },

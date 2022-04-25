@@ -1,6 +1,6 @@
 class Photos {
   int? id;
-  String? imageUrl;
+  List? photos;
 
-  Photos({this.id, this.imageUrl});
+  Photos({this.id, this.photos});
 }
