@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sevendays/pages/day_three_one.dart';
 import 'package:sevendays/theme.dart';
 
 class DayTwoTwo extends StatelessWidget {
@@ -53,7 +54,14 @@ class DayTwoTwo extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 55,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DayThreeOne(),
+                      ),
+                    );
+                  },
                   child: Text(
                     'Shape My Body',
                     style: GoogleFonts.lato(
