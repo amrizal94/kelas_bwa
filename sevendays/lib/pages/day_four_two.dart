@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sevendays/pages/day_five_one.dart';
 
 class DayFourTwo extends StatelessWidget {
   const DayFourTwo({Key? key}) : super(key: key);
@@ -41,9 +42,19 @@ class DayFourTwo extends StatelessWidget {
             const SizedBox(
               height: 59,
             ),
-            Image.asset(
-              'assets/images/day_4_btn_rocket.png',
-              width: 65,
+            InkWell(
+              onTap: (() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DayFiveOne(),
+                  ),
+                );
+              }),
+              child: Image.asset(
+                'assets/images/day_4_btn_rocket.png',
+                width: 65,
+              ),
             ),
           ],
         ),
