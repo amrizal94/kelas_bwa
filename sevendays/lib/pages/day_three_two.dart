@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sevendays/pages/day_four_one.dart';
 import 'package:sevendays/widgets/text_input.dart';
 
 class DayThreeTwo extends StatelessWidget {
@@ -59,7 +60,14 @@ class DayThreeTwo extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DayFourOne(),
+                    ),
+                  );
+                },
               ),
             ),
             const SizedBox(
