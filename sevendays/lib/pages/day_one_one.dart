@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sevendays/pages/day_two_one.dart';
 
 class DayOneOne extends StatelessWidget {
   const DayOneOne({Key? key}) : super(key: key);
@@ -26,7 +27,12 @@ class DayOneOne extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DayTwoOne(),
+                          ),
+                        );
                       },
                       child: Image.asset(
                         'assets/images/icon_home.png',
