@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sevendays/pages/day_seven_two.dart';
 import 'package:sevendays/widgets/list_cart.dart';
 
 class DaySevenOne extends StatelessWidget {
@@ -179,7 +180,14 @@ class DaySevenOne extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(53),
                   )),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DaySevenTwo(),
+                  ),
+                );
+              },
               child: Text(
                 'Checkout Now',
                 style: GoogleFonts.poppins(
