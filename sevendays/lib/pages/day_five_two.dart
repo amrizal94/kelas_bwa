@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sevendays/pages/day_six_one.dart';
 
 class DayFiveTwo extends StatelessWidget {
   const DayFiveTwo({Key? key}) : super(key: key);
@@ -66,20 +67,30 @@ class DayFiveTwo extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 55,
-                decoration: BoxDecoration(
-                  color: const Color(0xff4074E6),
-                  borderRadius: BorderRadius.circular(13),
-                ),
-                child: Align(
-                  child: Text(
-                    'Submit Review',
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DaySixOne(),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 55,
+                  decoration: BoxDecoration(
+                    color: const Color(0xff4074E6),
+                    borderRadius: BorderRadius.circular(13),
+                  ),
+                  child: Align(
+                    child: Text(
+                      'Submit Review',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
