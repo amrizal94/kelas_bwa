@@ -1,3 +1,4 @@
+import 'package:airplane/pages/home.dart';
 import 'package:airplane/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -115,7 +116,14 @@ class BonusSaldo extends StatelessWidget {
                     width: 220,
                     height: 55,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Home(),
+                          ),
+                        );
+                      },
                       child: Text(
                         'Start Fly Now',
                         style: whiteTextColor.copyWith(
